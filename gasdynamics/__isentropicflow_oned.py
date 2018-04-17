@@ -8,7 +8,6 @@ from copy import copy
 #	- T: temperature
 #	- p: pressure
 #	- rho: density
-
 def mach_angle(M,degrees=0):
 	""" Computes mach angle for M > 1
 
