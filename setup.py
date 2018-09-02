@@ -1,9 +1,9 @@
 from distutils.core import setup
 
-setup(name='gasdynamics',
+setup(name='mpbatch',
 	version='0.0',
-	packages=['gasdynamics'],
-	description="Common gasdynamics relations",
+	packages=['mpbatch'],
+	description="Multiprocessing of batch processes",
 	author="Kevin Course",
 	author_email="kevinlcourse@gmail.com",
 	)
