@@ -20,7 +20,7 @@ def batch_process(func,iter_input,num_cores):
 	# define function alias to allow for mp
 	def __func_alias(iterable,send_end):
 		return_val = func(iterable)
-		print('Return val: %s' % return_val)
+		#print('Return val: %s' % return_val)
 		send_end.send(return_val)
 
 	# initialization of parallel dictionary to map subprocess to initial input
