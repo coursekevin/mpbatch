@@ -8,6 +8,17 @@ Clone the repo. and run:
 python setup.py
 ```
 
-or...
+## Example Usage
+```python
+from mpbatch import batch_process
 
-move the 
+def test_func(L):
+  return [el**2 for el in L]
+  
+test_list = [i+1 for i in range(10000)]  
+
+num_cores = 4
+
+output = batch_process(test_func,test_list,num_cores)
+print(output)
+```
