@@ -1,2 +1,4 @@
 __pycache__/
 gasdynamics.egg-info/
+mpbatch.egg-info/
+.DS_Store

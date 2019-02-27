@@ -75,6 +75,6 @@ if __name__ == '__main__':
 	test_L = [i+1 for i in range(10000)]
 
 	
-	output = parallel_process(test_func,test_L,4)
+	output = batch_process(test_func,test_L,4)
 	print(output)
 
