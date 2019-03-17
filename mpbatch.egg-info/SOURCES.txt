@@ -1,6 +1,0 @@
-mpbatch/__init__.py
-mpbatch/__mputil.py
-mpbatch.egg-info/PKG-INFO
-mpbatch.egg-info/SOURCES.txt
-mpbatch.egg-info/dependency_links.txt
-mpbatch.egg-info/top_level.txt
