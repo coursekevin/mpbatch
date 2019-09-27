@@ -11,7 +11,7 @@ setuptools.setup(
 	description="Easy multi-core processing of batch-type processes",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/coursekevin/avlpy",
+    url="https://github.com/coursekevin/mpbatch",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
