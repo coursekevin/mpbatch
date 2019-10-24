@@ -18,7 +18,7 @@ git clone https://github.com/coursekevin/mpbatch.git
 and install the package by running:
 
 ```bash
-python setup.py
+pip install . 
 ```
 from the mpbatch/ directory
 
