@@ -5,7 +5,7 @@ Mpbatch is a small python package that simplifies multi-core processing for batc
 Install directly from git with:
 
 ```bash
-sudo pip install git+https://github.com/coursekevin/mpbatch.git
+pip install git+https://github.com/coursekevin/mpbatch.git
 ```
 
 or...
