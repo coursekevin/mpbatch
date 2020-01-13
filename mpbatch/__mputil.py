@@ -1,4 +1,5 @@
 import multiprocessing as mp
+import time
 
 
 def batch_process(func, iter_input, num_cores):
@@ -18,10 +19,8 @@ def batch_process(func, iter_input, num_cores):
     """
 
     # define function alias to allow for mp
-    def __func_alias(iterable, send_end):
-        return_val = func(iterable)
-        #print('Return val: %s' % return_val)
-        send_end.send(return_val)
+    def __func_alias(iterable, q, core):
+        q.put((func(iterable), core))
 
     # initialization of parallel dictionary to map subprocess to initial input
     parallel_dict = {}
@@ -39,29 +38,36 @@ def batch_process(func, iter_input, num_cores):
 
     # initialization of multiprocess tracking lists
     proc_list = []
-    pipe_list = []
+
+    q = mp.Queue()
 
     for core in range(num_cores):
-
-        recv_end, send_end = mp.Pipe(False)
         sub_list = [iter_input[i] for i in parallel_dict[core]]
-        args = (sub_list, send_end)
+        args = (sub_list, q, core)
         proc = mp.Process(target=__func_alias, args=args)
         proc_list.append(proc)
-        pipe_list.append(recv_end)
 
         proc.start()
 
-    # wait for processes to finish
+    # dealing with large inputs / outputs (from https://stackoverflow.com/questions/31708646/process-join-and-queue-dont-work-with-large-numbers)
+    liveprocs = proc_list.copy()
+
+    # construct return_list
+    return_list = [0 for i in iter_input]
+
+    # clear queue until all inputs are read
+    while liveprocs or not q.empty():
+        while not q.empty():
+            sub_ans, core = q.get()
+            for idx, ans in zip(parallel_dict[core], sub_ans):
+                return_list[idx] = ans
+
+        time.sleep(0.1)  # wait for new items to queue
+        liveprocs = [p for p in liveprocs if p.is_alive()]
+
+    # close all processes
     for proc in proc_list:
         proc.join()
-
-    # intialize return list
-    return_list = [0 for i in iter_input]
-    for core in range(num_cores):
-        sub_ans = pipe_list[core].recv()
-        for idx, ans in zip(parallel_dict[core], sub_ans):
-            return_list[idx] = ans
 
     return return_list
 
@@ -73,7 +79,7 @@ if __name__ == '__main__':
     def test_func(L):
         return [el**2 for el in L]
 
-    test_L = [i+1 for i in range(10000)]
+    test_L = [i+1 for i in range(1000)]
 
-    output = batch_process(test_func, test_L, 4)
+    output = batch_process(test_func, test_L, 12)
     print(output)
