@@ -1,6 +1,8 @@
 # mpbatch
 Mpbatch is a small python package that simplifies multi-core processing for batch processes.
 
+This package breaks with Python 3.8! It is only valid with Python 3 - 3.7
+
 ## Installation
 Install directly from git with:
 
